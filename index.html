@@ -542,7 +542,7 @@
       <p class="venue-address" data-reveal="fade-up" id="venueAddress">[VENUE ADDRESS]</p>
       <a class="maps-btn" id="mapsBtn" data-reveal="fade-up" href="#" target="_blank" rel="noopener">ดูเส้นทาง · Google Maps</a>
       <div class="map-preview" data-reveal="fade-up" id="mapPreview">
-        <div class="map-placeholder">https://maps.app.goo.gl/yDNzPX12Dbr7mV1P8<br>Map preview appears once the venue is configured</div>
+        <div class="map-placeholder">แผนที่จะแสดงเมื่อกำหนดค่าสถานที่จัดงาน<br>Map preview appears once the venue is configured</div>
       </div>
     </section>
 
@@ -618,10 +618,11 @@
       timezone: "Asia/Bangkok"
     },
     venue: {
-  name: "ชื่อสถานที่จัดงาน",
-  address: "ที่อยู่เต็ม",
-  googleMapsUrl: "https://maps.app.goo.gl/yDNzPX12Dbr7mV1P8"
-},
+      name: "โรงพยาบาลบันนังสตา",
+      address: "[VENUE ADDRESS]",
+      googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.2635199,101.2576161",
+      embedUrl: "https://www.google.com/maps?q=6.2635199,101.2576161&z=16&output=embed"
+    },
     wishes: {
       googleSheetsEndpoint: "[GOOGLE APPS SCRIPT URL]"
     },
@@ -792,9 +793,13 @@
     const hasMapUrl = weddingData.venue.googleMapsUrl && weddingData.venue.googleMapsUrl.indexOf('[') !== 0;
     if(hasMapUrl){
       btn.href = weddingData.venue.googleMapsUrl;
-      const embedSrc = weddingData.venue.googleMapsUrl.indexOf('output=embed') !== -1
-        ? weddingData.venue.googleMapsUrl
-        : weddingData.venue.googleMapsUrl + (weddingData.venue.googleMapsUrl.indexOf('?') !== -1 ? '&' : '?') + 'output=embed';
+      // Prefer an explicit embedUrl (built from lat/lng) since shortened
+      // maps.app.goo.gl links and place URLs can't reliably be embedded
+      // by appending output=embed.
+      const embedSrc = weddingData.venue.embedUrl
+        || (weddingData.venue.googleMapsUrl.indexOf('output=embed') !== -1
+          ? weddingData.venue.googleMapsUrl
+          : weddingData.venue.googleMapsUrl + (weddingData.venue.googleMapsUrl.indexOf('?') !== -1 ? '&' : '?') + 'output=embed');
       preview.innerHTML = '<iframe src="' + embedSrc + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Wedding venue map"></iframe>';
     } else {
       btn.addEventListener('click', (e) => e.preventDefault());
@@ -878,7 +883,7 @@
           animateCounter(el, count);
           io.disconnect();
         }
-      }ƒ
+      }
     }, { threshold: 0.5 });
     io.observe(el);
     return { refresh: async () => { const c = await wishesService.getCount(); animateCounter(el, c); } };
