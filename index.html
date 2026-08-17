@@ -542,7 +542,7 @@
       <p class="venue-address" data-reveal="fade-up" id="venueAddress">[VENUE ADDRESS]</p>
       <a class="maps-btn" id="mapsBtn" data-reveal="fade-up" href="#" target="_blank" rel="noopener">ดูเส้นทาง · Google Maps</a>
       <div class="map-preview" data-reveal="fade-up" id="mapPreview">
-        <div class="map-placeholder">แผนที่จะแสดงเมื่อกำหนดค่าสถานที่จัดงาน<br>Map preview appears once the venue is configured</div>
+        <div class="map-placeholder">https://maps.app.goo.gl/yDNzPX12Dbr7mV1P8<br>Map preview appears once the venue is configured</div>
       </div>
     </section>
 
@@ -878,7 +878,7 @@
           animateCounter(el, count);
           io.disconnect();
         }
-      }
+      }ƒ
     }, { threshold: 0.5 });
     io.observe(el);
     return { refresh: async () => { const c = await wishesService.getCount(); animateCounter(el, c); } };
