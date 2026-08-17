@@ -144,6 +144,37 @@
     opacity:0;
     pointer-events:none;
   }
+  .cover-content{
+    display:flex; flex-direction:column; align-items:center;
+    transition: opacity var(--dur-fast) var(--ease-elegant);
+    position:relative; z-index:2;
+  }
+  .cover-content.is-hidden{ opacity:0; pointer-events:none; }
+
+  .cover-video-layer{
+    position:absolute; inset:0; z-index:3;
+    display:flex; align-items:center; justify-content:center;
+    background:#3B2A2A;
+    opacity:0; pointer-events:none;
+    transition: opacity var(--dur-med) var(--ease-elegant);
+  }
+  .cover-video-layer.is-active{ opacity:1; pointer-events:auto; }
+  .cover-video{
+    width:100%; height:100%;
+    object-fit:cover;
+    border:0;
+  }
+  .video-skip-btn{
+    position:absolute; bottom:26px; right:20px;
+    background:rgba(0,0,0,.35);
+    border:1px solid rgba(255,255,255,.6);
+    color:var(--white);
+    padding:10px 20px;
+    font-family:var(--font-en-body); font-style:italic; letter-spacing:.06em; font-size:13px;
+    border-radius:2px; cursor:pointer;
+  }
+  .video-skip-btn:focus-visible{ outline:2px solid var(--white); outline-offset:3px; }
+
   .cover-corner{ position:absolute; width:120px; height:120px; opacity:.9; color:rgba(255,255,255,.75); }
   .cover-corner.tl{ top:18px; left:18px; }
   .cover-corner.tr{ top:18px; right:18px; transform:scaleX(-1); }
@@ -418,18 +449,43 @@
       <svg class="cover-corner bl" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M4 4C20 4 30 10 34 24C38 38 30 48 16 48" stroke="currentColor" stroke-width="1"/><path d="M4 4C4 20 10 30 24 34C38 38 48 30 48 16" stroke="currentColor" stroke-width="1"/><circle cx="30" cy="30" r="2.4" fill="currentColor"/></svg>
       <svg class="cover-corner br" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M4 4C20 4 30 10 34 24C38 38 30 48 16 48" stroke="currentColor" stroke-width="1"/><path d="M4 4C4 20 10 30 24 34C38 38 48 30 48 16" stroke="currentColor" stroke-width="1"/><circle cx="30" cy="30" r="2.4" fill="currentColor"/></svg>
 
-      <p class="cover-eyebrow">The Wedding Of</p>
+      <div class="cover-content" id="coverContent">
+        <p class="cover-eyebrow">The Wedding Of</p>
 
-      <div class="cover-names">
-        <div class="cover-th" lang="th">ฮัซวานี</div>
-        <div class="cover-amp">&amp;</div>
-        <div class="cover-th" lang="th">บัยฮากีย์</div>
-        <div class="cover-en">Haswanee &amp; Baihaqee</div>
+        <div class="cover-names">
+          <div class="cover-th" lang="th">ฮัซวานี</div>
+          <div class="cover-amp">&amp;</div>
+          <div class="cover-th" lang="th">บัยฮากีย์</div>
+          <div class="cover-en">Haswanee &amp; Baihaqee</div>
+        </div>
+
+        <p class="cover-date">18 · 10 · 2026&nbsp;&nbsp;·&nbsp;&nbsp;18 ตุลาคม 2569</p>
+
+        <button class="open-btn" id="openBtn" type="button">Open Invitation</button>
       </div>
 
-      <p class="cover-date">18 · 10 · 2026&nbsp;&nbsp;·&nbsp;&nbsp;18 ตุลาคม 2569</p>
-
-      <button class="open-btn" id="openBtn" type="button">Open Invitation</button>
+      <!-- Video overlay: hidden until "Open Invitation" is tapped, then plays
+           the opening video before revealing the rest of the invitation. -->
+      <div class="cover-video-layer" id="coverVideoLayer" aria-hidden="true">
+        <video
+          id="coverVideo"
+          class="cover-video"
+          playsinline
+          preload="none"
+          poster=""
+        >
+          <source src="[VIDEO FILE]" type="video/mp4" />
+        </video>
+        <iframe
+          id="coverVideoFrame"
+          class="cover-video"
+          hidden
+          allow="autoplay"
+          allowfullscreen
+          title="Opening video"
+        ></iframe>
+        <button class="video-skip-btn" id="videoContinueBtn" type="button" hidden>ถัดไป · Continue</button>
+      </div>
     </section>
 
     <!-- ===================== 2. FLORAL + WAX SEAL ===================== -->
@@ -618,10 +674,10 @@
       timezone: "Asia/Bangkok"
     },
     venue: {
-      name: "ร้านทองโซเฟีย",
-      address: "ร้านทองโซเฟีย",
-      googleMapsUrl: "https://maps.app.goo.gl/f7mcYa2BbtgHnTQf6",
-      embedUrl: "https://www.google.com/maps?q=6.263371, 101.259054&z=16&output=embed"
+      name: "โรงพยาบาลบันนังสตา",
+      address: "[VENUE ADDRESS]",
+      googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.2635199,101.2576161",
+      embedUrl: "https://www.google.com/maps?q=6.2635199,101.2576161&z=16&output=embed"
     },
     wishes: {
       googleSheetsEndpoint: "[GOOGLE APPS SCRIPT URL]"
@@ -629,6 +685,16 @@
     music: {
       enabled: true,
       source: "[AUDIO FILE]"
+    },
+    openingVideo: {
+      enabled: true,
+      // Preferred: host the actual video file (mp4) alongside the site so it
+      // can autoplay and auto-advance to the next section when it ends.
+      // Google Drive share links cannot be embedded reliably as a <video>
+      // source, so as a fallback we embed Drive's own player below — in
+      // that mode the guest taps "Continue" instead of it auto-advancing.
+      mp4Source: "[VIDEO FILE]",
+      driveFileId: "1xZ2a6uIIMb5FE2Xvdt9bpZyViSQFLpdb"
     }
   };
 
@@ -671,10 +737,16 @@
   function initCoverOpen(){
     const openBtn = document.getElementById('openBtn');
     const cover = document.getElementById('cover');
+    const coverContent = document.getElementById('coverContent');
+    const videoLayer = document.getElementById('coverVideoLayer');
+    const video = document.getElementById('coverVideo');
+    const videoFrame = document.getElementById('coverVideoFrame');
+    const continueBtn = document.getElementById('videoContinueBtn');
     const musicToggle = document.getElementById('musicToggle');
     const bgMusic = document.getElementById('bgMusic');
 
-    openBtn.addEventListener('click', () => {
+    /* Step 2: fade the cover up/out, start music, scroll to the next section */
+    function proceedToNextSection(){
       cover.classList.add('is-opened');
       document.body.style.overflowY = 'auto';
 
@@ -694,6 +766,49 @@
         const next = document.querySelector('.date-intro');
         if(next) next.scrollIntoView({ behavior: reducedMotionQuery.matches ? 'auto' : 'smooth', block:'start' });
       }, 650);
+    }
+
+    /* Step 1 (optional): tap plays the opening video first */
+    const cfg = weddingData.openingVideo;
+    const hasMp4 = cfg && cfg.enabled && cfg.mp4Source && cfg.mp4Source.indexOf('[') !== 0;
+    const hasDriveFallback = cfg && cfg.enabled && cfg.driveFileId;
+
+    function playVideoThenProceed(){
+      coverContent.classList.add('is-hidden');
+      videoLayer.classList.add('is-active');
+      videoLayer.setAttribute('aria-hidden', 'false');
+
+      if(hasMp4){
+        video.hidden = false;
+        video.src = cfg.mp4Source;
+        video.addEventListener('ended', proceedToNextSection, { once:true });
+        video.play().catch(() => {
+          // Autoplay blocked even after a tap (rare) — let the guest continue manually.
+          continueBtn.hidden = false;
+        });
+        // Safety net: always offer a manual way forward.
+        setTimeout(() => { continueBtn.hidden = false; }, 4000);
+      } else if(hasDriveFallback){
+        video.hidden = true;
+        videoFrame.hidden = false;
+        videoFrame.src = 'https://drive.google.com/file/d/' + cfg.driveFileId + '/preview?autoplay=1';
+        // Drive's player runs in a cross-origin iframe, so we can't detect
+        // when it ends — the guest taps Continue when ready.
+        continueBtn.hidden = false;
+      } else {
+        proceedToNextSection();
+        return;
+      }
+
+      continueBtn.addEventListener('click', proceedToNextSection, { once:true });
+    }
+
+    openBtn.addEventListener('click', () => {
+      if(hasMp4 || hasDriveFallback){
+        playVideoThenProceed();
+      } else {
+        proceedToNextSection();
+      }
     }, { once:true });
   }
 
