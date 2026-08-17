@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Haswanee & Baihaqee — Wedding Invitation</title>
+<meta name="description" content="We invite you to be part of our special day." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Haswanee & Baihaqee — Wedding Invitation" />
+<meta property="og:description" content="We invite you to be part of our special day." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/cover-og.jpg" />
+<meta property="og:url" content="[WEBSITE_URL]" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Haswanee & Baihaqee — Wedding Invitation" />
+<meta name="twitter:description" content="We invite you to be part of our special day." />
+<meta name="twitter:image" content="assets/cover-og.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Charmonman:wght@400;700&family=Sarabun:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --dusty-rose:#C99F9F;
+    --dusty-rose-deep:#B5817F;
+    --dusty-rose-pale:#E7CFCF;
+    --cream:#FEF9FA;
+    --white:#FFFFFF;
+    --muted-gold:#B89A62;
+    --muted-gold-soft:#D8C69C;
+    --soft-text:#8F7373;
+    --dark-text:#5F4C4C;
+    --line:#E4D3D3;
+
+    --font-th-display:'Charmonman', cursive;
+    --font-en-display:'Cormorant Garamond', serif;
+    --font-th-body:'Sarabun', sans-serif;
+    --font-en-body:'EB Garamond', serif;
+    --font-ar:'Amiri', serif;
+
+    --ease-elegant: cubic-bezier(.22,.61,.36,1);
+    --dur-fast: .5s;
+    --dur-med: 1s;
+    --dur-slow: 1.4s;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:#EDE2E2;
+    color:var(--dark-text);
+    font-family:var(--font-en-body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{ max-width:100%; display:block; }
+  button{ font-family:inherit; }
+  a{ color:inherit; }
+
+  /* ===== Desktop invitation-card frame ===== */
+  .stage{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+  }
+  .invitation{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    background:var(--cream);
+    position:relative;
+    overflow:hidden;
+  }
+  @media (min-width:640px){
+    body{ padding:40px 16px; }
+    .stage{ min-height:calc(100vh - 80px); align-items:flex-start; }
+    .invitation{
+      min-height:calc(100vh - 80px);
+      border-radius:6px;
+      box-shadow:0 30px 60px -20px rgba(95,76,76,.35), 0 0 0 1px rgba(184,154,98,.15);
+    }
+  }
+
+  .section{
+    position:relative;
+    padding:64px 28px;
+    width:100%;
+  }
+
+  /* ===== Reveal system ===== */
+  [data-reveal]{
+    opacity:0;
+    transition: opacity var(--dur-med) var(--ease-elegant), transform var(--dur-med) var(--ease-elegant);
+  }
+  [data-reveal="fade"]{ transform:none; }
+  [data-reveal="fade-up"]{ transform:translateY(24px); }
+  [data-reveal="fade-down"]{ transform:translateY(-24px); }
+  [data-reveal="soft-scale"]{ transform:scale(.94); }
+  [data-reveal].is-visible{ opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ transition-duration:.2s; transform:none !important; }
+    .floral-sway, .floral-float{ animation:none !important; }
+  }
+  body.reduced-motion [data-reveal]{ transition-duration:.2s; transform:none !important; }
+  body.reduced-motion .floral-sway, body.reduced-motion .floral-float{ animation:none !important; }
+
+  /* ===== Typography helpers ===== */
+  .eyebrow{
+    font-family:var(--font-en-body);
+    font-style:italic;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--soft-text);
+    text-align:center;
+  }
+  .th-display{ font-family:var(--font-th-display); }
+  .en-display{ font-family:var(--font-en-display); font-style:italic; }
+  .divider{
+    width:44px; height:1px; margin:18px auto;
+    background:linear-gradient(90deg, transparent, var(--muted-gold), transparent);
+  }
+
+  /* ===================== 1. OPENING COVER ===================== */
+  .cover{
+    min-height:100vh;
+    background:var(--dusty-rose);
+    background-image: radial-gradient(120% 90% at 50% -10%, rgba(255,255,255,.18), transparent 60%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:48px 24px;
+    position:relative;
+    z-index:2;
+    transition: transform var(--dur-slow) var(--ease-elegant), opacity var(--dur-slow) var(--ease-elegant);
+  }
+  .cover.is-opened{
+    transform:translateY(-46px);
+    opacity:0;
+    pointer-events:none;
+  }
+  .cover-corner{ position:absolute; width:120px; height:120px; opacity:.9; color:rgba(255,255,255,.75); }
+  .cover-corner.tl{ top:18px; left:18px; }
+  .cover-corner.tr{ top:18px; right:18px; transform:scaleX(-1); }
+  .cover-corner.bl{ bottom:18px; left:18px; transform:scaleY(-1); }
+  .cover-corner.br{ bottom:18px; right:18px; transform:scale(-1,-1); }
+
+  .cover-eyebrow{
+    color:#FBEFEF; letter-spacing:.32em; font-size:12px;
+    font-family:var(--font-en-body); text-transform:uppercase;
+  }
+  .cover-names{ margin:26px 0 30px; }
+  .cover-th{
+    font-family:var(--font-th-display);
+    font-weight:700;
+    font-size:56px;
+    line-height:1.15;
+    color:var(--white);
+    text-shadow:0 2px 18px rgba(95,42,42,.18);
+  }
+  .cover-amp{
+    color:var(--muted-gold-soft);
+    font-family:var(--font-en-display);
+    font-style:italic;
+    font-size:22px;
+    margin:6px 0;
+  }
+  .cover-en{
+    font-family:var(--font-en-display);
+    font-style:italic;
+    font-weight:500;
+    color:#FBEFEF;
+    font-size:19px;
+    letter-spacing:.03em;
+    margin-top:8px;
+  }
+  .cover-date{
+    color:#FBEFEF; font-size:13px; letter-spacing:.18em; margin-top:22px; opacity:.9;
+  }
+  .open-btn{
+    margin-top:44px;
+    background:transparent;
+    border:1px solid rgba(255,255,255,.75);
+    color:var(--white);
+    padding:14px 38px;
+    font-family:var(--font-en-body);
+    font-style:italic;
+    letter-spacing:.1em;
+    font-size:15px;
+    border-radius:2px;
+    cursor:pointer;
+    transition: background var(--dur-fast) var(--ease-elegant), color var(--dur-fast) var(--ease-elegant), letter-spacing var(--dur-fast) var(--ease-elegant);
+  }
+  .open-btn:hover{ background:rgba(255,255,255,.14); letter-spacing:.16em; }
+  .open-btn:focus-visible{ outline:2px solid var(--white); outline-offset:3px; }
+
+  /* ===================== 2. FLORAL / WAX SEAL ===================== */
+  .floral-wrap{
+    position:relative;
+    min-height:100vh;
+    margin-top:-100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(180deg, var(--dusty-rose) 0%, #DDB9B7 40%, var(--cream) 100%);
+    padding:60px 24px;
+    z-index:1;
+  }
+  .bouquet{ width:min(320px, 78vw); height:auto; position:relative; }
+  .bouquet .petal{ animation: sway 9s ease-in-out infinite; transform-origin:center; }
+  .bouquet .petal:nth-child(odd){ animation-duration:11s; animation-delay:.4s; }
+  @keyframes sway{
+    0%,100%{ transform:rotate(0deg); }
+    50%{ transform:rotate(1.2deg); }
+  }
+  .wax-seal{
+    position:absolute; left:50%; top:52%;
+    transform:translate(-50%,-50%);
+    width:112px; height:112px;
+    filter: drop-shadow(0 10px 16px rgba(95,42,42,.28));
+  }
+  .wax-seal-mono{
+    font-family:var(--font-en-display); font-style:italic; font-weight:600;
+    fill:#F6E7E7; font-size:30px;
+  }
+
+  /* ===================== 3. DATE INTRO ===================== */
+  .date-intro{ background:var(--cream); text-align:center; padding-top:80px; padding-bottom:80px; }
+  .date-big{
+    font-family:var(--font-en-display); font-style:italic; font-weight:500;
+    color:var(--dusty-rose-deep);
+    font-size:44px;
+    letter-spacing:.06em;
+    margin:20px 0 8px;
+  }
+  .date-sub{ color:var(--soft-text); font-size:13px; letter-spacing:.16em; text-transform:uppercase; }
+  .gold-ornament{ width:64px; height:auto; margin:34px auto 0; color:var(--muted-gold); }
+
+  /* ===================== 4. QURAN ===================== */
+  .quran-section{ background:var(--white); text-align:center; }
+  .section-title{
+    font-family:var(--font-th-display); font-weight:700; font-size:26px;
+    color:var(--dusty-rose-deep); margin-bottom:4px;
+  }
+  .section-title-en{ font-family:var(--font-en-display); font-style:italic; color:var(--soft-text); font-size:14px; }
+  .arabic-block{
+    direction:rtl; font-family:var(--font-ar); font-size:22px; line-height:2.1;
+    color:var(--dark-text); margin:30px 0 22px;
+  }
+  .th-translation{ font-family:var(--font-th-body); font-size:15px; color:var(--soft-text); line-height:1.9; }
+  .ref{ margin-top:18px; font-size:12px; letter-spacing:.14em; color:var(--muted-gold); text-transform:uppercase; }
+
+  /* ===================== 5. INVITATION MESSAGE ===================== */
+  .invite-msg{ background:var(--cream); text-align:center; }
+  .bismillah{ direction:rtl; font-family:var(--font-ar); font-size:24px; color:var(--dusty-rose-deep); margin-bottom:14px; }
+  .invite-th{ font-family:var(--font-th-body); font-size:15px; color:var(--soft-text); margin-bottom:8px; }
+  .invite-body{ font-family:var(--font-th-body); font-size:16px; line-height:2; color:var(--dark-text); margin-top:22px; }
+
+  /* ===================== 6. COUPLE ===================== */
+  .couple{ background:var(--white); text-align:center; }
+  .monogram{ width:88px; height:88px; margin:0 auto 20px; color:var(--muted-gold); }
+  .couple-th{ font-family:var(--font-th-display); font-weight:700; font-size:34px; color:var(--dusty-rose-deep); }
+  .couple-amp{ font-family:var(--font-en-display); font-style:italic; color:var(--muted-gold); font-size:20px; display:block; margin:10px 0; }
+  .couple-en{ font-family:var(--font-en-display); font-style:italic; font-size:17px; color:var(--soft-text); margin-top:10px; }
+
+  /* ===================== 7. COUNTDOWN ===================== */
+  .countdown-section{ background:var(--dusty-rose-pale); text-align:center; }
+  .countdown-row{ display:flex; justify-content:center; gap:22px; margin-top:30px; flex-wrap:wrap; }
+  .cd-unit{ min-width:56px; }
+  .cd-num{
+    font-family:var(--font-en-display); font-style:italic; font-weight:600;
+    font-size:38px; color:var(--dusty-rose-deep); line-height:1;
+  }
+  .cd-label{ margin-top:8px; font-size:10px; letter-spacing:.2em; color:var(--soft-text); text-transform:uppercase; }
+  .cd-sep{ align-self:flex-start; margin-top:6px; color:var(--muted-gold); font-size:22px; font-family:var(--font-en-display); }
+  .cd-today{ font-family:var(--font-th-display); font-size:24px; color:var(--dusty-rose-deep); margin-top:20px; }
+
+  /* ===================== 8. CALENDAR ===================== */
+  .calendar-section{ background:var(--cream); text-align:center; }
+  .cal-grid{
+    margin-top:28px;
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:8px 4px;
+    max-width:320px;
+    margin-left:auto; margin-right:auto;
+  }
+  .cal-dow{ font-size:10px; color:var(--soft-text); letter-spacing:.08em; padding-bottom:6px; }
+  .cal-day{
+    font-family:var(--font-en-body); font-size:13px; color:var(--dark-text);
+    height:32px; display:flex; align-items:center; justify-content:center;
+    border-radius:50%;
+  }
+  .cal-day.empty{ visibility:hidden; }
+  .cal-day.highlight{
+    background:var(--muted-gold);
+    color:var(--white);
+    font-weight:600;
+    box-shadow:0 6px 14px -6px rgba(184,154,98,.6);
+  }
+
+  /* ===================== 9. VENUE / MAP ===================== */
+  .venue-section{ background:var(--white); text-align:center; }
+  .venue-icon{ width:34px; height:34px; margin:0 auto 16px; color:var(--muted-gold); }
+  .venue-name{ font-family:var(--font-en-display); font-style:italic; font-size:22px; color:var(--dusty-rose-deep); }
+  .venue-address{ font-family:var(--font-th-body); font-size:14px; color:var(--soft-text); margin-top:8px; line-height:1.7; }
+  .maps-btn{
+    margin-top:26px;
+    display:inline-block;
+    background:var(--cream);
+    border:1px solid var(--muted-gold);
+    color:var(--dusty-rose-deep);
+    padding:12px 30px;
+    border-radius:2px;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-decoration:none;
+    transition: background var(--dur-fast) var(--ease-elegant), transform var(--dur-fast) var(--ease-elegant);
+  }
+  .maps-btn:hover{ background:var(--dusty-rose-pale); transform:translateY(-1px); }
+  .maps-btn:focus-visible{ outline:2px solid var(--muted-gold); outline-offset:3px; }
+  .map-preview{
+    margin-top:22px;
+    width:100%;
+    height:240px;
+    border-radius:4px;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .map-preview iframe{ width:100%; height:100%; border:0; }
+  .map-placeholder{
+    width:100%; height:100%; background:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--soft-text); font-size:13px; text-align:center; padding:16px;
+  }
+
+  /* ===================== 10. WISHES FORM ===================== */
+  .wishes-section{ background:var(--cream); }
+  .field{ margin-top:20px; text-align:left; }
+  .field label{ display:block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--soft-text); margin-bottom:8px; }
+  .field input, .field textarea{
+    width:100%;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:12px 14px;
+    font-family:var(--font-th-body);
+    font-size:15px;
+    color:var(--dark-text);
+    transition:border-color var(--dur-fast) var(--ease-elegant);
+  }
+  .field input:focus, .field textarea:focus{ outline:none; border-color:var(--muted-gold); }
+  .field textarea{ min-height:96px; resize:vertical; }
+  .field-error{ color:#A6524F; font-size:12px; margin-top:6px; min-height:14px; }
+  .submit-btn{
+    margin-top:24px; width:100%;
+    background:var(--dusty-rose);
+    color:var(--white);
+    border:none; padding:14px;
+    font-family:var(--font-en-body); font-style:italic; letter-spacing:.08em; font-size:15px;
+    border-radius:2px; cursor:pointer;
+    transition: background var(--dur-fast) var(--ease-elegant);
+  }
+  .submit-btn:hover{ background:var(--dusty-rose-deep); }
+  .submit-btn:disabled{ opacity:.6; cursor:default; }
+  .submit-btn:focus-visible{ outline:2px solid var(--muted-gold); outline-offset:3px; }
+  .form-status{ margin-top:16px; font-size:13px; text-align:center; min-height:18px; color:var(--dusty-rose-deep); }
+
+  /* ===================== 11. COUNTER ===================== */
+  .counter-section{ background:var(--white); text-align:center; }
+  .counter-num{ font-family:var(--font-en-display); font-style:italic; font-weight:600; font-size:52px; color:var(--muted-gold); }
+  .counter-label{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--soft-text); margin-top:6px; }
+
+  /* ===================== 12. CLOSING ===================== */
+  .closing{ background:var(--dusty-rose); text-align:center; color:var(--white); padding-bottom:90px; }
+  .closing-th{ font-family:var(--font-th-display); font-weight:700; font-size:26px; }
+  .closing-msg{ font-family:var(--font-th-body); font-size:14px; margin-top:14px; line-height:1.9; color:#FBEFEF; opacity:.95; }
+  .closing-names{ font-family:var(--font-en-display); font-style:italic; margin-top:22px; font-size:18px; }
+
+  /* ===================== Music toggle ===================== */
+  .music-toggle{
+    position:fixed; bottom:22px; right:22px;
+    width:46px; height:46px; border-radius:50%;
+    background:var(--white); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 20px -6px rgba(95,76,76,.35);
+    cursor:pointer; z-index:50;
+    color:var(--dusty-rose-deep);
+    opacity:0; pointer-events:none;
+    transition:opacity var(--dur-med) var(--ease-elegant);
+  }
+  .music-toggle.is-active{ opacity:1; pointer-events:auto; }
+  .music-toggle svg{ width:18px; height:18px; }
+  .music-toggle .bar{ transition:height .2s ease; }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap;
+  }
+
+  ::selection{ background:var(--dusty-rose-pale); }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <main class="invitation" id="invitation">
+
+    <!-- ===================== 1. OPENING COVER ===================== -->
+    <section class="cover" id="cover" aria-label="Wedding invitation cover">
+      <svg class="cover-corner tl" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M4 4C20 4 30 10 34 24C38 38 30 48 16 48" stroke="currentColor" stroke-width="1"/><path d="M4 4C4 20 10 30 24 34C38 38 48 30 48 16" stroke="currentColor" stroke-width="1"/><circle cx="30" cy="30" r="2.4" fill="currentColor"/></svg>
+      <svg class="cover-corner tr" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M4 4C20 4 30 10 34 24C38 38 30 48 16 48" stroke="currentColor" stroke-width="1"/><path d="M4 4C4 20 10 30 24 34C38 38 48 30 48 16" stroke="currentColor" stroke-width="1"/><circle cx="30" cy="30" r="2.4" fill="currentColor"/></svg>
+      <svg class="cover-corner bl" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M4 4C20 4 30 10 34 24C38 38 30 48 16 48" stroke="currentColor" stroke-width="1"/><path d="M4 4C4 20 10 30 24 34C38 38 48 30 48 16" stroke="currentColor" stroke-width="1"/><circle cx="30" cy="30" r="2.4" fill="currentColor"/></svg>
+      <svg class="cover-corner br" viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M4 4C20 4 30 10 34 24C38 38 30 48 16 48" stroke="currentColor" stroke-width="1"/><path d="M4 4C4 20 10 30 24 34C38 38 48 30 48 16" stroke="currentColor" stroke-width="1"/><circle cx="30" cy="30" r="2.4" fill="currentColor"/></svg>
+
+      <p class="cover-eyebrow">The Wedding Of</p>
+
+      <div class="cover-names">
+        <div class="cover-th" lang="th">ฮัซวานี</div>
+        <div class="cover-amp">&amp;</div>
+        <div class="cover-th" lang="th">บัยฮากีย์</div>
+        <div class="cover-en">Haswanee &amp; Baihaqee</div>
+      </div>
+
+      <p class="cover-date">18 · 10 · 2026&nbsp;&nbsp;·&nbsp;&nbsp;18 ตุลาคม 2569</p>
+
+      <button class="open-btn" id="openBtn" type="button">Open Invitation</button>
+    </section>
+
+    <!-- ===================== 2. FLORAL + WAX SEAL ===================== -->
+    <section class="floral-wrap" aria-hidden="true">
+      <svg class="bouquet" viewBox="0 0 320 320" fill="none">
+        <g class="petal" stroke="rgba(255,255,255,.85)" stroke-width="1.2">
+          <path d="M60 260C40 220 40 180 70 150" />
+          <path d="M260 260C280 220 280 180 250 150" />
+          <path d="M60 120C50 90 60 60 90 40" />
+          <path d="M260 120C270 90 260 60 230 40" />
+        </g>
+        <g class="petal" stroke="rgba(255,255,255,.6)" stroke-width="1">
+          <ellipse cx="70" cy="150" rx="20" ry="12" transform="rotate(-30 70 150)"/>
+          <ellipse cx="250" cy="150" rx="20" ry="12" transform="rotate(30 250 150)"/>
+          <ellipse cx="90" cy="40" rx="16" ry="10" transform="rotate(-20 90 40)"/>
+          <ellipse cx="230" cy="40" rx="16" ry="10" transform="rotate(20 230 40)"/>
+        </g>
+        <circle cx="160" cy="160" r="58" fill="rgba(255,255,255,.05)"/>
+      </svg>
+      <svg class="wax-seal" viewBox="0 0 112 112">
+        <defs>
+          <radialGradient id="seal-grad" cx="35%" cy="30%" r="80%">
+            <stop offset="0%" stop-color="#D6A9A9"/>
+            <stop offset="65%" stop-color="#B5817F"/>
+            <stop offset="100%" stop-color="#9C6A68"/>
+          </radialGradient>
+        </defs>
+        <circle cx="56" cy="56" r="52" fill="url(#seal-grad)"/>
+        <circle cx="56" cy="56" r="52" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+        <text x="56" y="64" text-anchor="middle" class="wax-seal-mono">H&amp;B</text>
+      </svg>
+    </section>
+
+    <!-- ===================== 3. DATE INTRODUCTION ===================== -->
+    <section class="section date-intro">
+      <p class="eyebrow" data-reveal="fade-up">Save The Date</p>
+      <div class="date-big" data-reveal="fade-up">18 · 10 · 2026</div>
+      <p class="date-sub" data-reveal="fade-up">18 ตุลาคม 2569</p>
+      <svg class="gold-ornament" data-reveal="soft-scale" viewBox="0 0 64 40" fill="none">
+        <path d="M2 20C14 4 24 4 32 14C40 4 50 4 62 20" stroke="currentColor" stroke-width="1"/>
+        <circle cx="32" cy="18" r="2" fill="currentColor"/>
+      </svg>
+    </section>
+
+    <!-- ===================== 4. QURAN VERSE ===================== -->
+    <section class="section quran-section">
+      <p class="section-title th-display" data-reveal="fade-up">อายัตอัลกุรอานเกี่ยวกับการแต่งงาน</p>
+      <p class="section-title-en" data-reveal="fade-up">Ayat Al-Qur'an</p>
+      <div class="divider" data-reveal="fade"></div>
+      <p class="arabic-block" lang="ar" dir="rtl" data-reveal="fade-up">[INSERT VERIFIED QURAN VERSE]</p>
+      <p class="th-translation" data-reveal="fade-up">[INSERT VERIFIED THAI TRANSLATION]</p>
+      <p class="ref" data-reveal="fade">[INSERT SURAH AND AYAH REFERENCE]</p>
+    </section>
+
+    <!-- ===================== 5. INVITATION MESSAGE ===================== -->
+    <section class="section invite-msg">
+      <p class="bismillah" lang="ar" dir="rtl" data-reveal="fade-up">السلام عليكم ورحمة الله وبركاته</p>
+      <p class="invite-th" data-reveal="fade-up">ด้วยพระนามของอัลลอฮ์ ผู้ทรงกรุณาปรานี ผู้ทรงเมตตาเสมอ</p>
+      <div class="divider" data-reveal="fade"></div>
+      <p class="invite-body" data-reveal="fade-up">
+        ด้วยความปีติยินดี เราขอเชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา
+        เป็นสักขีพยานแห่งความรักและพรอันประเสริฐที่อัลลอฮ์ทรงประทานให้
+        การได้รับพรจากท่านคือเกียรติอันยิ่งใหญ่สำหรับเราทั้งสองคน
+      </p>
+    </section>
+
+    <!-- ===================== 6. COUPLE ===================== -->
+    <section class="section couple">
+      <svg class="monogram" data-reveal="soft-scale" viewBox="0 0 88 88" fill="none">
+        <circle cx="44" cy="44" r="42" stroke="currentColor" stroke-width="1"/>
+        <text x="44" y="52" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-size="26" fill="currentColor">H&amp;B</text>
+      </svg>
+      <p class="couple-th th-display" data-reveal="fade-up">ฮัซวานี</p>
+      <span class="couple-amp" data-reveal="fade">&amp;</span>
+      <p class="couple-th th-display" data-reveal="fade-up">บัยฮากีย์</p>
+      <p class="couple-en" data-reveal="fade-up">Haswanee &amp; Baihaqee</p>
+    </section>
+
+    <!-- ===================== 7. COUNTDOWN ===================== -->
+    <section class="section countdown-section">
+      <p class="eyebrow" data-reveal="fade-up">Counting Down To Our Day</p>
+      <div id="countdownWrap" data-reveal="fade-up">
+        <div class="countdown-row" id="countdownRow">
+          <div class="cd-unit"><div class="cd-num" id="cd-days">00</div><div class="cd-label">Days</div></div>
+          <div class="cd-sep">·</div>
+          <div class="cd-unit"><div class="cd-num" id="cd-hours">00</div><div class="cd-label">Hours</div></div>
+          <div class="cd-sep">·</div>
+          <div class="cd-unit"><div class="cd-num" id="cd-mins">00</div><div class="cd-label">Minutes</div></div>
+          <div class="cd-sep">·</div>
+          <div class="cd-unit"><div class="cd-num" id="cd-secs">00</div><div class="cd-label">Seconds</div></div>
+        </div>
+        <p class="cd-today th-display" id="cd-today" hidden>วันนี้คือวันพิเศษของเรา</p>
+      </div>
+    </section>
+
+    <!-- ===================== 8. CALENDAR ===================== -->
+    <section class="section calendar-section">
+      <p class="date-sub" data-reveal="fade-up">18 ตุลาคม 2569 &nbsp;·&nbsp; 18 October 2026</p>
+      <p class="section-title-en" data-reveal="fade-up" style="margin-top:6px;font-size:18px;" id="calMonthTitle">October 2026</p>
+      <div class="cal-grid" id="calGrid" data-reveal="fade-up"></div>
+    </section>
+
+    <!-- ===================== 9. VENUE + MAP ===================== -->
+    <section class="section venue-section">
+      <svg class="venue-icon" data-reveal="soft-scale" viewBox="0 0 24 24" fill="none">
+        <path d="M12 22s7-7.2 7-12.6A7 7 0 1 0 5 9.4C5 14.8 12 22 12 22Z" stroke="currentColor" stroke-width="1.3"/>
+        <circle cx="12" cy="9.4" r="2.4" stroke="currentColor" stroke-width="1.3"/>
+      </svg>
+      <p class="venue-name" data-reveal="fade-up" id="venueName">[VENUE NAME]</p>
+      <p class="venue-address" data-reveal="fade-up" id="venueAddress">[VENUE ADDRESS]</p>
+      <a class="maps-btn" id="mapsBtn" data-reveal="fade-up" href="#" target="_blank" rel="noopener">ดูเส้นทาง · Google Maps</a>
+      <div class="map-preview" data-reveal="fade-up" id="mapPreview">
+        <div class="map-placeholder">แผนที่จะแสดงเมื่อกำหนดค่าสถานที่จัดงาน<br>Map preview appears once the venue is configured</div>
+      </div>
+    </section>
+
+    <!-- ===================== 10. WISHES FORM ===================== -->
+    <section class="section wishes-section">
+      <p class="section-title th-display" data-reveal="fade-up">คำอวยพรจากแขก</p>
+      <p class="section-title-en" data-reveal="fade-up">Ucapan &amp; Doa</p>
+      <div class="divider" data-reveal="fade"></div>
+
+      <form id="wishesForm" data-reveal="fade-up" novalidate>
+        <div class="field">
+          <label for="guestName">ชื่อ</label>
+          <input type="text" id="guestName" name="name" autocomplete="name" />
+          <p class="field-error" id="nameError"></p>
+        </div>
+        <div class="field">
+          <label for="guestMessage">คำอวยพร</label>
+          <textarea id="guestMessage" name="message"></textarea>
+          <p class="field-error" id="messageError"></p>
+        </div>
+        <button class="submit-btn" type="submit" id="submitBtn">Send</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- ===================== 11. WISHES COUNTER ===================== -->
+    <section class="section counter-section">
+      <div class="counter-num" id="wishesCounter" data-reveal="soft-scale">0</div>
+      <p class="counter-label" data-reveal="fade">Wishes &amp; Du'a</p>
+    </section>
+
+    <!-- ===================== 12. CLOSING ===================== -->
+    <section class="section closing">
+      <p class="closing-th th-display" data-reveal="fade-up">ขอพรจากอัลลอฮ์</p>
+      <p class="closing-msg" data-reveal="fade-up">
+        ขอขอบพระคุณทุกท่านที่เป็นส่วนหนึ่งของวันสำคัญนี้<br>
+        ขอให้อัลลอฮ์ทรงประทานความรัก ความเมตตา และความสุขสวัสดิ์แก่เราทั้งสองตลอดไป
+      </p>
+      <p class="closing-names en-display" data-reveal="fade-up">Haswanee &amp; Baihaqee</p>
+    </section>
+
+  </main>
+</div>
+
+<!-- Music control -->
+<button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Toggle background music">
+  <svg viewBox="0 0 24 24" fill="none" id="musicIcon"><path d="M9 18V6l10-2v12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.4" stroke="currentColor" stroke-width="1.4"/><circle cx="16.5" cy="16" r="2.4" stroke="currentColor" stroke-width="1.4"/></svg>
+</button>
+<audio id="bgMusic" loop preload="none">
+  <source src="[AUDIO_FILE]" type="audio/mpeg" />
+</audio>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =====================================================================
+     38. WEDDING DATA — single source of truth. Replace placeholders with
+     real details before launch.
+  ===================================================================== */
+  const weddingData = {
+    couple: {
+      bride: "ฮัซวานี",
+      groom: "บัยฮากีย์",
+      brideEnglish: "Haswanee",
+      groomEnglish: "Baihaqee"
+    },
+    wedding: {
+      date: "2026-10-18",
+      isoDateTime: "2026-10-18T00:00:00+07:00",
+      thaiDate: "18 ตุลาคม 2569",
+      englishDate: "18 October 2026",
+      timezone: "Asia/Bangkok"
+    },
+    venue: {
+      name: "[VENUE NAME]",
+      address: "[VENUE ADDRESS]",
+      googleMapsUrl: "[GOOGLE MAP URL]"
+    },
+    wishes: {
+      googleSheetsEndpoint: "[GOOGLE APPS SCRIPT URL]"
+    },
+    music: {
+      enabled: true,
+      source: "[AUDIO FILE]"
+    }
+  };
+
+  /* Reduced motion */
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function applyReducedMotion(){
+    document.body.classList.toggle('reduced-motion', reducedMotionQuery.matches);
+  }
+  applyReducedMotion();
+  reducedMotionQuery.addEventListener('change', applyReducedMotion);
+
+  /* =====================================================================
+     useScrollReveal — IntersectionObserver based reveal system
+  ===================================================================== */
+  function initScrollReveal(){
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    if(!('IntersectionObserver' in window)){
+      els.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach((entry, i) => {
+        if(entry.isIntersecting){
+          const el = entry.target;
+          const group = el.closest('.section') || el.parentElement;
+          const siblings = group ? Array.from(group.querySelectorAll('[data-reveal]')) : [el];
+          const idx = siblings.indexOf(el);
+          const delay = Math.max(0, idx) * 130;
+          setTimeout(()=> el.classList.add('is-visible'), delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  }
+
+  /* =====================================================================
+     OPEN INVITATION interaction
+  ===================================================================== */
+  function initCoverOpen(){
+    const openBtn = document.getElementById('openBtn');
+    const cover = document.getElementById('cover');
+    const musicToggle = document.getElementById('musicToggle');
+    const bgMusic = document.getElementById('bgMusic');
+
+    openBtn.addEventListener('click', () => {
+      cover.classList.add('is-opened');
+      document.body.style.overflowY = 'auto';
+
+      if(weddingData.music.enabled){
+        musicToggle.classList.add('is-active');
+        bgMusic.src = weddingData.music.source && weddingData.music.source.indexOf('[') !== 0
+          ? weddingData.music.source
+          : '';
+        if(bgMusic.src){
+          bgMusic.volume = 0.55;
+          bgMusic.play().catch(()=>{ /* autoplay may still be blocked; user can use the toggle */ });
+          musicToggle.setAttribute('aria-pressed','true');
+        }
+      }
+
+      setTimeout(() => {
+        const next = document.querySelector('.date-intro');
+        if(next) next.scrollIntoView({ behavior: reducedMotionQuery.matches ? 'auto' : 'smooth', block:'start' });
+      }, 650);
+    }, { once:true });
+  }
+
+  function initMusicToggle(){
+    const musicToggle = document.getElementById('musicToggle');
+    const bgMusic = document.getElementById('bgMusic');
+    musicToggle.addEventListener('click', () => {
+      if(bgMusic.paused){
+        bgMusic.play().catch(()=>{});
+        musicToggle.setAttribute('aria-pressed','true');
+      } else {
+        bgMusic.pause();
+        musicToggle.setAttribute('aria-pressed','false');
+      }
+    });
+  }
+
+  /* =====================================================================
+     useCountdown
+  ===================================================================== */
+  function initCountdown(){
+    const target = new Date(weddingData.wedding.isoDateTime).getTime();
+    const els = {
+      days: document.getElementById('cd-days'),
+      hours: document.getElementById('cd-hours'),
+      mins: document.getElementById('cd-mins'),
+      secs: document.getElementById('cd-secs'),
+      row: document.getElementById('countdownRow'),
+      today: document.getElementById('cd-today')
+    };
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      const now = Date.now();
+      let diff = target - now;
+      if(diff <= 0){
+        els.row.hidden = true;
+        els.today.hidden = false;
+        return;
+      }
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+      const secs = Math.floor((diff % 60000) / 1000);
+      els.days.textContent = pad(days);
+      els.hours.textContent = pad(hours);
+      els.mins.textContent = pad(mins);
+      els.secs.textContent = pad(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  /* =====================================================================
+     Wedding calendar — October 2026, scroll-triggered reveal of day 18
+  ===================================================================== */
+  function initCalendar(){
+    const grid = document.getElementById('calGrid');
+    const year = 2026, month = 9; // October = index 9
+    const firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const dowLabels = ['S','M','T','W','T','F','S'];
+
+    dowLabels.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'cal-dow';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+    for(let i=0;i<firstDay;i++){
+      const el = document.createElement('div');
+      el.className = 'cal-day empty';
+      grid.appendChild(el);
+    }
+    for(let d=1; d<=daysInMonth; d++){
+      const el = document.createElement('div');
+      el.className = 'cal-day' + (d === 18 ? ' highlight' : '');
+      el.textContent = d;
+      if(d === 18){
+        el.setAttribute('aria-label', 'Wedding day, October 18');
+      }
+      grid.appendChild(el);
+    }
+  }
+
+  /* =====================================================================
+     Venue + Google Maps
+  ===================================================================== */
+  function initVenue(){
+    const nameEl = document.getElementById('venueName');
+    const addrEl = document.getElementById('venueAddress');
+    const btn = document.getElementById('mapsBtn');
+    const preview = document.getElementById('mapPreview');
+
+    nameEl.textContent = weddingData.venue.name;
+    addrEl.textContent = weddingData.venue.address;
+
+    const hasMapUrl = weddingData.venue.googleMapsUrl && weddingData.venue.googleMapsUrl.indexOf('[') !== 0;
+    if(hasMapUrl){
+      btn.href = weddingData.venue.googleMapsUrl;
+      const embedSrc = weddingData.venue.googleMapsUrl.indexOf('output=embed') !== -1
+        ? weddingData.venue.googleMapsUrl
+        : weddingData.venue.googleMapsUrl + (weddingData.venue.googleMapsUrl.indexOf('?') !== -1 ? '&' : '?') + 'output=embed';
+      preview.innerHTML = '<iframe src="' + embedSrc + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Wedding venue map"></iframe>';
+    } else {
+      btn.addEventListener('click', (e) => e.preventDefault());
+      btn.style.opacity = '.6';
+    }
+  }
+
+  /* =====================================================================
+     services/wishesService — swap the mock adapter for the live
+     Google Apps Script endpoint by configuring weddingData.wishes.
+  ===================================================================== */
+  const wishesService = (function(){
+    const endpoint = weddingData.wishes.googleSheetsEndpoint;
+    const isConfigured = endpoint && endpoint.indexOf('[') !== 0;
+
+    let mockCount = 128;
+
+    async function getCount(){
+      if(!isConfigured){
+        return new Promise(res => setTimeout(()=> res(mockCount), 400));
+      }
+      try{
+        const res = await fetch(endpoint + '?action=count', { method:'GET' });
+        if(!res.ok) throw new Error('bad response');
+        const data = await res.json();
+        return typeof data.count === 'number' ? data.count : mockCount;
+      }catch(err){
+        console.warn('wishesService.getCount fallback to mock:', err);
+        return mockCount;
+      }
+    }
+
+    async function submitWish(payload){
+      if(!isConfigured){
+        return new Promise((resolve) => setTimeout(() => {
+          mockCount += 1;
+          resolve({ ok:true });
+        }, 500));
+      }
+      try{
+        await fetch(endpoint, {
+          method:'POST',
+          mode:'no-cors', // Apps Script web apps typically don't return CORS headers
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        // no-cors responses are opaque; treat network success as success
+        return { ok:true };
+      }catch(err){
+        return { ok:false, error: err };
+      }
+    }
+
+    return { getCount, submitWish };
+  })();
+
+  /* =====================================================================
+     Wishes counter + entrance animation
+  ===================================================================== */
+  function animateCounter(el, target){
+    if(reducedMotionQuery.matches){ el.textContent = target; return; }
+    const duration = 1000;
+    const start = performance.now();
+    function frame(now){
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target);
+      if(p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function initCounter(){
+    const el = document.getElementById('wishesCounter');
+    let animated = false;
+    const io = new IntersectionObserver(async (entries) => {
+      for(const entry of entries){
+        if(entry.isIntersecting && !animated){
+          animated = true;
+          const count = await wishesService.getCount();
+          animateCounter(el, count);
+          io.disconnect();
+        }
+      }
+    }, { threshold: 0.5 });
+    io.observe(el);
+    return { refresh: async () => { const c = await wishesService.getCount(); animateCounter(el, c); } };
+  }
+
+  /* =====================================================================
+     Wishes form
+  ===================================================================== */
+  function initWishesForm(counterController){
+    const form = document.getElementById('wishesForm');
+    const nameInput = document.getElementById('guestName');
+    const msgInput = document.getElementById('guestMessage');
+    const nameError = document.getElementById('nameError');
+    const msgError = document.getElementById('messageError');
+    const status = document.getElementById('formStatus');
+    const btn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      nameError.textContent = '';
+      msgError.textContent = '';
+      status.textContent = '';
+
+      let valid = true;
+      if(!nameInput.value.trim()){
+        nameError.textContent = 'กรุณากรอกชื่อ';
+        valid = false;
+      }
+      if(!msgInput.value.trim()){
+        msgError.textContent = 'กรุณากรอกคำอวยพร';
+        valid = false;
+      }
+      if(!valid) return;
+
+      btn.disabled = true;
+      status.textContent = 'กำลังส่ง...';
+
+      const payload = {
+        name: nameInput.value.trim(),
+        message: msgInput.value.trim(),
+        timestamp: new Date().toISOString()
+      };
+
+      const result = await wishesService.submitWish(payload);
+
+      btn.disabled = false;
+      if(result.ok){
+        status.textContent = 'ขอบคุณสำหรับคำอวยพรของคุณ';
+        form.reset();
+        if(counterController) counterController.refresh();
+      } else {
+        status.textContent = 'ขออภัย ไม่สามารถส่งคำอวยพรได้ กรุณาลองใหม่อีกครั้ง';
+      }
+    });
+  }
+
+  /* =====================================================================
+     Boot
+  ===================================================================== */
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.overflowY = 'hidden';
+    initCoverOpen();
+    initMusicToggle();
+    initScrollReveal();
+    initCountdown();
+    initCalendar();
+    initVenue();
+    const counterController = initCounter();
+    initWishesForm(counterController);
+  });
+})();
+</script>
+</body>
+</html>
